@@ -19,7 +19,7 @@ export class ItemService {
   }
 
   update(i: Item){
-    return this.http.post<Item>(`${this.api}/${i.id}`, i);
+    return this.http.put<Item>(`${this.api}/${i.id}`, i);
   }
 
   delete(id: number){

@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ItemStore } from '../item-store';
+import { ItemService } from '../item-service';
+import { Item } from '../item';
 
 @Component({
   selector: 'app-item-form',
@@ -12,6 +14,8 @@ export class ItemForm {
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly itemStore = inject(ItemStore);
+  private readonly itemService = inject(ItemService);
+
   protected readonly form = this.formBuilder.nonNullable.group({
     title: ['', Validators.required],
     description: [''],
@@ -27,9 +31,17 @@ export class ItemForm {
       alert("Invalid form");
       return;
     }
-    const item = this.form.getRawValue();
-    this.itemStore.addItem(item);
+    const payload = this.form.getRawValue() as Item;
 
-    this.form.reset();
+    this.itemService.create(payload).subscribe({
+    next: (created: Item)=>{
+      this.itemStore.addItem(created);
+      this.form.reset({title: '', description: '', done: false});
+    },
+    error: (err)=>{
+      console.error('Error creating item')
+      alert('Error creating item. check console')
+    }
+    })
     }
 }

@@ -39,6 +39,7 @@ public class ItemController {
     @PutMapping("/{id}")
     public Item update(@PathVariable Long id, @RequestBody Item item){
         Item i = repo.findById(id).orElseThrow();
+        i.setId(item.getId());
         i.setTitle(item.getTitle());
         i.setDescription(item.getDescription());
         i.setDone(item.isDone());
