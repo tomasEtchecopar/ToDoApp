@@ -1,1 +1,28 @@
-<p>item-list works!</p>
+<h1>Tasks</h1>
+
+@if (items().length > 0){
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Done</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of items(); track $index) {
+            <tr>
+                <td>{{item.title}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.done ? "Done" : "Pending"}}</td>
+                <td>
+            <input type="checkbox" [(ngModel)]="item.done" name="done{{$index}}">
+            </td>
+            </tr>
+            }
+            </tbody>
+    </table>
+}@else {
+    <p>No tasks available.</p>
+}

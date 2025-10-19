@@ -11,14 +11,9 @@
 
     <div class="form-field">
         <label for="description">Description</label>
-        <textarea name="Description" id="description" formControlName="Description" rows="2"></textarea>
+        <textarea name="Description" id="description" formControlName="description" maxlength="200" rows="2"></textarea>
     </div>
     
-    <div class="form-field">
-        <label for="done">Done</label>
-        <input type="checkbox" id="done" formControlName="Done">
-    </div>
-
     <div class="form-actions">
         <button type="reset">Reset</button>
         <button type="submit" [disabled]="form.invalid">Send</button>
