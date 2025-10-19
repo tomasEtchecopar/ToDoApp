@@ -1,6 +1,6 @@
 <h1>Tasks</h1>
 
-@if (items().length > 0){
+@if (item$().length > 0){
     <table>
         <thead>
             <tr>
@@ -11,14 +11,15 @@
             </tr>
         </thead>
         <tbody>
-            @for (item of items(); track $index) {
+            @for (item of item$(); track $index) {
             <tr>
                 <td>{{item.title}}</td>
                 <td>{{item.description}}</td>
                 <td>{{item.done ? "Done" : "Pending"}}</td>
                 <td>
-            <input type="checkbox" [(ngModel)]="item.done" name="done{{$index}}">
+            <input type="checkbox" [checked]="item.done" (change)="onToggle(item)"> 
             </td>
+            <button (click)="deleteItem(item.id)">Delete task</button>
             </tr>
             }
             </tbody>
